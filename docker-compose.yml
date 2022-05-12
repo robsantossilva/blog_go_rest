@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+    blog:
+        build: .
+        container_name: blog
+        #entrypoint: dockerize -wait tcp://db:3306 -timeout 40s ./docker/entrypoint.sh
+        ports: 
+            - "3000:3000"
+        volumes:
+            - .:/var/www
+            #- ./.docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+        networks:
+            - blog-network
+        # depends_on:
+        #     - db
+
+    # nginx:
+    #     build: docker/nginx
+    #     container_name: nginx
+    #     restart: always
+    #     tty: true
+    #     ports:
+    #         - "8000:80"
+    #     volumes:
+    #         - .:/var/www
+    #     networks:
+    #         - blog-network
+    #     depends_on:
+    #         - app
+
+    # db:
+    #     build: ./docker/mysql
+    #     container_name: db
+    #     restart: always
+    #     tty: true
+    #     ports:
+    #         - "33006:3306"
+    #     volumes:
+    #         - ./docker/dbdata:/var/lib/mysql
+    #     environment:
+    #         - MYSQL_DATABASE=blog_go_rest
+    #         - MYSQL_ROOT_PASSWORD=root
+    #         #- MYSQL_USER=root
+    #     networks:
+    #         - blog-network
+
+networks:
+    blog-network:
+        driver: bridge
