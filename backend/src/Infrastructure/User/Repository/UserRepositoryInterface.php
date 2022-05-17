@@ -23,7 +23,7 @@ class UserRepository implements UserRepositoryInterface
         $client = new Client([
             'base_uri'        => 'https://gorest.co.in/public/v2/',
             'headers' => [
-                'Authorization' => 'Bearer e3a4b4e2854628f89c9a9d9fb057cf01cf39441e45a7000003fdd7b14c359a53'
+                'Authorization' => ''
             ]
         ]);
 
