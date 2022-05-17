@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Usecase\Post\Create;
+namespace Tests\Unit\Usecase\Blog\CreatePost;
 
 use Core\Domain\Blog\Entity\Post;
 use Core\Domain\Blog\Repository\PostRepositoryInterface;
@@ -15,7 +15,7 @@ class CreatePostUsecaseUnitTest extends TestCase
     {
 
         $postRepository = $this->getMockBuilder(PostRepositoryInterface::class)
-            ->setMethods(['create'])
+            ->setMethods(['create', 'findAll'])
             ->getMock();
         $postRepository
             ->expects($this->once())

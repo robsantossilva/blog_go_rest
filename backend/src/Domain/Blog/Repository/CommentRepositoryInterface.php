@@ -3,14 +3,14 @@
 namespace Core\Domain\Blog\Repository;
 
 use Core\Domain\SharedCore\Repository\RepositoryInterface;
-use Core\Domain\Blog\Entity\Post;
+use Core\Domain\Blog\Entity\Comment;
 
-interface PostRepositoryInterface extends RepositoryInterface
+interface CommentRepositoryInterface extends RepositoryInterface
 {
-    public function create(Post $post): Post;
+    public function create(Comment $post): Comment;
 
     /**
-     * @return Post[]
+     * @return Comment[]
      */
     public function findAll(int $page, bool $publicList): array;
 }
