@@ -12,10 +12,11 @@ class UserRepository implements UserRepositoryInterface
     public function create(User $user): User
     {
         $client = new GoRestClient();
+        $prefix = GoRestClient::prefix() ?? '';
 
         $response = $client->post('users', [
             RequestOptions::JSON => [
-                'name' => $user->name,
+                'name' => $prefix . $user->name,
                 'email' => $user->email,
                 'gender' => $user->gender,
                 'status' => $user->status,
@@ -27,7 +28,7 @@ class UserRepository implements UserRepositoryInterface
 
             return new User(
                 id: $u['id'],
-                name: $u['name'],
+                name: str_replace($prefix, "", $u['name']),
                 email: $u['email'],
                 gender: $u['gender'],
                 status: $u['status']
@@ -40,22 +41,27 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @return User[]
      */
-    public function findAll(int $page = 1): array
+    public function findAll(int $page = 1, bool $publicList = false): array
     {
 
         $client = new GoRestClient();
+        $prefix = GoRestClient::prefix() ?? '';
 
-        $response = $client->request('GET', 'users');
+        if ($prefix && $publicList == false) {
+            $response = $client->request('GET', "users?name={$prefix}");
+        } else {
+            $response = $client->request('GET', 'users');
+        }
 
         $users = [];
 
         if ($response->getBody()) {
             $data = json_decode($response->getBody()->getContents(), true);
-            $users = array_map(function ($u) {
+            $users = array_map(function ($u) use ($prefix) {
 
                 return new User(
                     id: $u['id'],
-                    name: $u['name'],
+                    name: str_replace($prefix, "", $u['name']),
                     email: $u['email'],
                     gender: $u['gender'],
                     status: $u['status']
