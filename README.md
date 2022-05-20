@@ -26,7 +26,7 @@ O Projeto precisa atender os seguintes requisitos:
 git clone https://github.com/robsantossilva/blog_go_rest.git
 ```
 
-2. Incluir token da API Go Rest no arquivo **(.env)**. Exemplo um **.env.example** de modelo
+2. Incluir token da API Go Rest no arquivo **(.env)**. Existe um **.env.example** de modelo
 ``` bash
 GOREST_API_HEADER_AUTH = COLE_SEU_TOKEN_AQUI
 ```
@@ -35,6 +35,8 @@ GOREST_API_HEADER_AUTH = COLE_SEU_TOKEN_AQUI
 ``` bash
 docker-compose up -d
 ```
+
+3. Acessar [http://localhost:8000/](http://localhost:8000/)
 
 ## Decisões de projeto
 
