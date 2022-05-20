@@ -13,4 +13,6 @@ interface CommentRepositoryInterface extends RepositoryInterface
      * @return Comment[]
      */
     public function findAll(string $postId, int $page, bool $publicList): array;
+
+    public function delete(string $commentId): void;
 }

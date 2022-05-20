@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Core\Infrastructure\Blog\Repository\CommentRepository;
 use Core\Usecase\Blog\CreateComment\CreateCommentUsecase;
 use Core\Usecase\Blog\CreateComment\InputCreateCommentDto;
+use Core\Usecase\Blog\DeleteComment\DeleteCommentUsecase;
+use Core\Usecase\Blog\DeleteComment\InputDeleteCommentDto;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -96,8 +98,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $postId)
     {
-        //
+        $repository = new CommentRepository();
+        $usecase = new DeleteCommentUsecase($repository);
+        $usecase->execute(new InputDeleteCommentDto(
+            comment_id: $id
+        ));
+
+        return redirect("/post/{$postId}/comment");
     }
 }

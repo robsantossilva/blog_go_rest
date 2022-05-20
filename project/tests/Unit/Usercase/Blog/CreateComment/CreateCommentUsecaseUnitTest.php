@@ -15,7 +15,7 @@ class CreateCommentUsecaseUnitTest extends TestCase
     {
 
         $postRepository = $this->getMockBuilder(CommentRepositoryInterface::class)
-            ->setMethods(['create', 'findAll'])
+            ->setMethods(['create', 'findAll', 'delete'])
             ->getMock();
         $postRepository
             ->expects($this->once())

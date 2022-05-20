@@ -17,12 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/post');
+    //return view('welcome');
+
+});
+
+Route::get('/home', function () {
+    return redirect('/post');
+    //return view('welcome');
+
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // User Index, Create, Store, ShowPost
 Route::resource('user', UserController::class)->only([
@@ -32,7 +40,7 @@ Route::get('/user/{userId}/post', [UserController::class, 'showPost'])->name('us
 
 // Post Create, Store, ShowComment
 Route::resource('/post', PostController::class)->only([
-    'store'
+    'store', 'index'
 ]);
 Route::get('/post/create/user/{userId}', [PostController::class, 'create'])->name('post.create');
 Route::get('/post/{postId}/comment', [PostController::class, 'showComment'])->name('post.show_comment');
@@ -42,3 +50,4 @@ Route::resource('/comment', CommentController::class)->only([
     'store'
 ]);
 Route::get('/comment/create/post/{postId}', [CommentController::class, 'create'])->name('comment.create');
+Route::get('/comment/{id}/delete/post/{postId}', [CommentController::class, 'destroy'])->name('comment.delete');

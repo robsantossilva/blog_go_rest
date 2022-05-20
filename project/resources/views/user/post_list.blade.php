@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h1>{{ __('Posts') }}</h1>
+                    <h1>{{ __('Posts') }} / <small style="font-size: 18px;">User: {{$userId}}</small></h1>
                     <a type="button" href="{{ route('post.create',['userId'=>$userId]) }}" class="btn btn-primary">Create</a>
                 </div>
 

@@ -17,7 +17,7 @@ class ListCommentUsecaseUnitTest extends TestCase
         $input = new InputListCommentDto("2");
 
         $commentRepository = $this->getMockBuilder(CommentRepositoryInterface::class)
-            ->setMethods(['create', 'findAll'])
+            ->setMethods(['create', 'findAll', 'delete'])
             ->getMock();
         $commentRepository
             ->expects($this->once())

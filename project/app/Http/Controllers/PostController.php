@@ -8,6 +8,8 @@ use Core\Usecase\Blog\CreatePost\CreatePostUsecase;
 use Core\Usecase\Blog\CreatePost\InputCreatePostDto;
 use Core\Usecase\Blog\ListComment\InputListCommentDto;
 use Core\Usecase\Blog\ListComment\ListCommentUsecase;
+use Core\Usecase\Blog\ListPost\InputListPostDto;
+use Core\Usecase\Blog\ListPost\ListPostUsecase;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -19,7 +21,16 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $page = 1;
+        $repository = new PostRepository();
+        $usecase = new ListPostUsecase($repository);
+        $posts = $usecase->execute(new InputListPostDto(
+            page: $page,
+            userId: '',
+            publicList: true
+        ));
+
+        return view('post.list', compact('posts'));
     }
 
     /**

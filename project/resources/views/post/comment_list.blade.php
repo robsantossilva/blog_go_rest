@@ -20,6 +20,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Body</th>
+                            <th scope="col"></th>
                           </tr>
                         </thead>
 
@@ -33,6 +34,7 @@
                                     <td>{{$c->name}}</td>
                                     <td>{{$c->email}}</td>
                                     <td>{{$c->body}}</td>
+                                    <td><a href="{{route('comment.delete',['id'=>$c->id, 'postId'=> $postId])}}">Remove</a></td>
                                 </tr>
                                 @endforeach
 

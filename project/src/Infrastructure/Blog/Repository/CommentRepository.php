@@ -68,4 +68,10 @@ class CommentRepository implements CommentRepositoryInterface
 
         return $comments;
     }
+
+    public function delete(string $commentId): void
+    {
+        $client = new GoRestClient();
+        $client->delete("comments/{$commentId}");
+    }
 }
