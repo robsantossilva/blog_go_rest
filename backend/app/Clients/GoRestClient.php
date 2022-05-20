@@ -21,6 +21,6 @@ class GoRestClient extends Client
 
     static public function prefix(): string
     {
-        return 'aW5pY2ll_';
+        return env('GOREST_API_PREFIX') . "@";
     }
 }

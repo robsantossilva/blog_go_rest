@@ -1,55 +1,47 @@
 <?php
 
-namespace Tests\Unit\Infrastructure\User\Repository;
+namespace Tests\Unit\Infrastructure\Post\Repository;
 
-use Core\Domain\User\Entity\User;
-use Core\Infrastructure\User\Repository\UserRepository;
+use Core\Domain\Blog\Entity\Post;
+use Core\Infrastructure\Blog\Repository\PostRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
-class UserRepositoryUnitTest extends TestCase
+class PostRepositoryUnitTest extends TestCase
 {
 
-    public function testCreateUser()
+    public function testCreatePost()
     {
-        $repository = new UserRepository();
-
-        $genderArr = ['male', 'female'];
-        $statusArr = ['active', 'inactive'];
+        $repository = new PostRepository();
 
         $faker = \Faker\Factory::create();
 
-        $gender = $genderArr[rand(0, 1)];
-        $name = $faker->firstName($gender) . " " . $faker->lastName();
-        $email = $faker->email();
-        $status = $statusArr[rand(0, 1)];
+        $title = $faker->text(100);
+        $body = $faker->text(500);
 
-        $user = $repository->create(new User(
+        $post = $repository->create(new Post(
             id: Uuid::uuid4()->toString(),
-            name: $name,
-            email: $email,
-            gender: $gender,
-            status: $status,
+            user_id: "1234",
+            title: $title,
+            body: $body,
         ));
 
-        $this->assertNotEmpty($user->id);
-        $this->assertEquals($name, $user->name);
-        $this->assertEquals($email, $user->email);
-        $this->assertEquals($gender, $user->gender);
-        $this->assertEquals($status, $user->status);
+        $this->assertNotEmpty($post->id);
+        $this->assertNotEmpty($post->user_id);
+        $this->assertEquals($title, $post->title);
+        $this->assertEquals($body, $post->body);
     }
 
-    public function testFindAllUsers()
+    public function testFindAllPosts()
     {
-        $repository = new UserRepository();
+        $repository = new PostRepository();
 
-        $users = $repository->findAll();
+        $posts = $repository->findAll();
 
-        $this->assertEquals(20, count($users));
-        $this->assertNotEmpty($users[0]->id);
-        $this->assertNotEmpty($users[0]->name);
-        $this->assertNotEmpty($users[0]->email);
-        $this->assertNotEmpty($users[0]->gender);
-        $this->assertNotEmpty($users[0]->status);
+        //$this->assertEquals(20, count($posts));
+        $this->assertNotEmpty($posts[0]->id);
+        $this->assertNotEmpty($posts[0]->user_id);
+        $this->assertNotEmpty($posts[0]->title);
+        $this->assertNotEmpty($posts[0]->body);
     }
 }

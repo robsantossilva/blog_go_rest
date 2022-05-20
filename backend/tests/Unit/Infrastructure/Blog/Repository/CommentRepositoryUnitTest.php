@@ -1,55 +1,50 @@
 <?php
 
-namespace Tests\Unit\Infrastructure\User\Repository;
+namespace Tests\Unit\Infrastructure\Comment\Repository;
 
-use Core\Domain\User\Entity\User;
-use Core\Infrastructure\User\Repository\UserRepository;
+use Core\Domain\Blog\Entity\Comment;
+use Core\Infrastructure\Blog\Repository\CommentRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
-class UserRepositoryUnitTest extends TestCase
+class CommentRepositoryUnitTest extends TestCase
 {
 
-    public function testCreateUser()
+    public function testCreateComment()
     {
-        $repository = new UserRepository();
-
-        $genderArr = ['male', 'female'];
-        $statusArr = ['active', 'inactive'];
+        $repository = new CommentRepository();
 
         $faker = \Faker\Factory::create();
 
-        $gender = $genderArr[rand(0, 1)];
-        $name = $faker->firstName($gender) . " " . $faker->lastName();
+        $name = $faker->text(100);
         $email = $faker->email();
-        $status = $statusArr[rand(0, 1)];
+        $body = $faker->text(500);
 
-        $user = $repository->create(new User(
+        $comment = $repository->create(new Comment(
             id: Uuid::uuid4()->toString(),
+            post_id: "1234",
             name: $name,
             email: $email,
-            gender: $gender,
-            status: $status,
+            body: $body,
         ));
 
-        $this->assertNotEmpty($user->id);
-        $this->assertEquals($name, $user->name);
-        $this->assertEquals($email, $user->email);
-        $this->assertEquals($gender, $user->gender);
-        $this->assertEquals($status, $user->status);
+        $this->assertNotEmpty($comment->id);
+        $this->assertNotEmpty($comment->post_id);
+        $this->assertEquals($name, $comment->name);
+        $this->assertEquals($email, $comment->email);
+        $this->assertEquals($body, $comment->body);
     }
 
-    public function testFindAllUsers()
+    public function testFindAllComments()
     {
-        $repository = new UserRepository();
+        $repository = new CommentRepository();
 
-        $users = $repository->findAll();
+        $comments = $repository->findAll("1234");
 
-        $this->assertEquals(20, count($users));
-        $this->assertNotEmpty($users[0]->id);
-        $this->assertNotEmpty($users[0]->name);
-        $this->assertNotEmpty($users[0]->email);
-        $this->assertNotEmpty($users[0]->gender);
-        $this->assertNotEmpty($users[0]->status);
+        $this->assertNotEmpty($comments[0]->id);
+        $this->assertNotEmpty($comments[0]->post_id);
+        $this->assertNotEmpty($comments[0]->name);
+        $this->assertNotEmpty($comments[0]->email);
+        $this->assertNotEmpty($comments[0]->body);
     }
 }

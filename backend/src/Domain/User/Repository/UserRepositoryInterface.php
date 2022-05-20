@@ -12,5 +12,5 @@ interface UserRepositoryInterface extends RepositoryInterface
     /**
      * @return User[]
      */
-    public function findAll(int $page): array;
+    public function findAll(int $page, bool $publicList = true): array;
 }

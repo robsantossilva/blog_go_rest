@@ -45,7 +45,6 @@ class UserRepositoryUnitTest extends TestCase
 
         $users = $repository->findAll();
 
-        $this->assertEquals(20, count($users));
         $this->assertNotEmpty($users[0]->id);
         $this->assertNotEmpty($users[0]->name);
         $this->assertNotEmpty($users[0]->email);
