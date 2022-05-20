@@ -1,11 +1,11 @@
-# GO Rest Blog
+# GO Rest Blog :zap:
 
-## Objetivo do projeto
+## Objetivo do projeto :dart:
 
 Realizar o consumo completo da [API Go Rest](https://gorest.co.in/) utilizando NodeJS ou Laravel. 
 Todos os métodos devem ser consumidos conforme documentação da API.
 
-## Requisitos
+## Requisitos :memo:
 
 A API que será utilizada está disponível no link https://gorest.co.in/
 
@@ -19,7 +19,7 @@ O Projeto precisa atender os seguintes requisitos:
 - [X] Apagar o comentário criado no requisito acima;
 - [X] Disponibilizar o projeto em um repositório do Git com as instruções para que a equipe de avaliação consiga executar;
 
-## Rodando o Projeto
+## Rodando o Projeto :running:
 
 1. Clonar o repositório
 ``` bash
@@ -38,7 +38,7 @@ docker-compose up -d
 
 3. Acessar [http://localhost:8000/](http://localhost:8000/)
 
-## Decisões de projeto
+## Decisões de projeto :construction:
 
 #### 1. Contextos da Aplicação:
 
@@ -89,3 +89,10 @@ GET|   post/{postId}/comment|               post.show_comment › PostController
 POST|  comment|                             comment.store › CommentController@store
 GET|   comment/create/post/{postId}|        comment.create › CommentController@create
 GET|   comment/{id}/delete/post/{postId}|   comment.delete › CommentController@destroy
+
+## Backlog :gift:
+
+- Coberturar de 100% nos testes
+- Remover User e Post
+- Paginação na Lista Publica de Posts
+- Editar User, Post e Comments
